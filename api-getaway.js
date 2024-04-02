@@ -29,7 +29,7 @@ if (!RentalService) {
   }
 // Create a gRPC client
 const grpcClient = new RentalService(
-  'localhost:8001',
+  'http://service2:8080',
   grpc.credentials.createInsecure()
 );
 
@@ -47,11 +47,13 @@ app.post('/rental', (req, res) => {
 // Proxy setup for HTTP microservices
 const avtoServiceProxy = createProxyMiddleware({
   target: 'http://avto-service1:8080',
+  //localhost
   changeOrigin: true,
 });
 
 const userServiceProxy = createProxyMiddleware({
   target: 'http://avto-service3:8080', 
+    //localhost
     changeOrigin: true,
     logLevel: 'debug',
   });
