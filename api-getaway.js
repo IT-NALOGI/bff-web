@@ -9,6 +9,12 @@ app.use('/avto', createProxyMiddleware({
   changeOrigin: true
 }));
 
+app.use('/users', createProxyMiddleware({
+  target: 'http://avto-service3:8080',
+  changeOrigin: true
+}));
+
+
 app.listen(port, () => {
   console.log(`API Gateway listening at http://localhost:${port}`);
 });
