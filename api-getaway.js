@@ -1,10 +1,12 @@
 const express = require('express');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const grpc = require('@grpc/grpc-js');
+const cors = require('cors');
 
 const app = express();
 const port = 3000;
 app.use(express.json());
+app.use(cors()); 
 
 app.use('/avto', createProxyMiddleware({
   target: 'http://avto-service1:8080',
@@ -63,7 +65,7 @@ app.post('/createRental', (req, res) => {
 app.get('/getRental', (req, res) => {
   const { rentalId } = req.query;
   const request = new GetRentalRequest();
-  request.setRentalid("661e5c3a39dbe27aa91f11b3");
+  request.setRentalid(rentalId);
 
   rentalClient.getRental(request, (error, response) => {
     if (error) {
